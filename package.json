@@ -16,7 +16,6 @@
     "classnames": "2.2.6",
     "clsx": "1.1.1",
     "date-fns": "2.14.0",
-    "eq-grid": "0.1.7",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-redux": "7.2.0",

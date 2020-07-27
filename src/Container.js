@@ -1,9 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
 import Item from './Item'
-import { initEqGrid } from 'eq-grid'
-
-initEqGrid(4, 1, 'rem', 6)
 
 const Container = ({ items }) => {
   return (
