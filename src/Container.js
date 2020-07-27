@@ -1,22 +1,22 @@
 import React from 'react'
-import cx from 'classnames'
 import Item from './Item'
+import styled from 'styled-components'
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-gap: 1rem;
+`
 
 const Container = ({ items }) => {
   return (
-    <eq-grid
-      className={cx({
-        'eq-grid-dense': true,
-        'eq-grid-2-collapse': true,
-        'eq-grid-gap-2': false,
-      })}
-    >
+    <Wrapper>
       {items?.map(o => (
         <Item key={o.id} {...o}>
           {o.items && <Container {...o} />}
         </Item>
       ))}
-    </eq-grid>
+    </Wrapper>
   )
 }
 
