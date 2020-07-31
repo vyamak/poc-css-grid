@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { selectSelectedItem } from '../selectors'
 import Custom from './Custom'
 import Actions from './Actions'
+import GridArea from './GridArea'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,9 +43,7 @@ const PropsPanel = () => {
       {selectedItem && (
         <>
           <Divider />
-          <Columns />
-          <Custom />
-          <Rows />
+          <GridArea />
         </>
       )}
     </Box>

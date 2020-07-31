@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     border: '2px solid transparent',
     margin: -2, // pour compenser le border
+    // minWidth: 0, // pour éviter le dépassement (grid blowout)
     '&:hover': {
       borderColor: theme.palette.action.focus,
     },
@@ -23,29 +24,28 @@ const DefaultComp = ({ compName }) => (
   <Typography color="error">unknown component type *{compName}*</Typography>
 )
 
-const Item = ({ layout, component, options, children, id }) => {
+const Item = ({ layout, component, options, children, id, i }) => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const { showName, showContent } = useSelector(selectDisplayOptions)
   const { id: selectedId } = useSelector(selectSelectedItem) || {}
-  const { eqCol, custom, eqRow } = layout
   const { render: TheComp, color, isContainer, items } = Comps[component] || {}
   return (
     <Box
-      className={cx(
-        classes.root,
-        {
-          selected: selectedId === id,
-          [`eq-col-${eqCol}`]: eqCol,
-          [`eq-row-${eqRow}`]: eqRow,
-        },
-        custom,
-      )}
+      className={cx(classes.root, {
+        selected: selectedId === id,
+      })}
       onClick={e => {
         dispatch(selectItem(id))
         e.stopPropagation()
       }}
       position="relative"
+      style={{
+        gridRowStart: layout.rowStart || 'auto',
+        gridColumnStart: layout.colStart || 'auto',
+        gridRowEnd: layout.rowEnd || 'auto',
+        gridColumnEnd: layout.colEnd || 'auto',
+      }}
     >
       {Comps[component] ? (
         <>
@@ -63,10 +63,14 @@ const Item = ({ layout, component, options, children, id }) => {
               height="100%"
               minHeight={isContainer && !!items ? 0 : '3rem'}
               bgcolor={color}
+              position="relative"
             >
               {showName && (
                 <Typography variant="caption">{component}</Typography>
               )}
+              <Box position="absolute" left={0} top={0} zIndex={1}>
+                {i}
+              </Box>
               <Box>{children}</Box>
             </Box>
           )}

@@ -106,7 +106,12 @@ const rootReducer = createReducer(initialState, {
     const item = {
       id: nanoid(),
       component,
-      layout: { eqCol: 'max' },
+      layout: {
+        rowStart: 'auto',
+        rowEnd: 'auto',
+        colStart: 'auto',
+        colEnd: 'auto',
+      },
       options,
     }
     if (state.selectedId) {
